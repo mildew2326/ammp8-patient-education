@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>aMMP-8 Patient Guide | What We Test & Why It Matters</title>
+<style>
+  :root {
+    --bg: #f6f3ee;
+    --ink: #1c2430;
+    --muted: #5b6675;
+    --card: #ffffff;
+    --line: #e4ddd2;
+    --teal: #0f766e;
+    --teal-soft: #d9f3ef;
+    --amber: #b45309;
+    --amber-soft: #fff1d6;
+    --rose: #be123c;
+    --rose-soft: #ffe4e9;
+    --good: #15803d;
+    --good-soft: #e8f8ee;
+    --shadow: 0 18px 50px rgba(28, 36, 48, 0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    min-height: 100%;
+    background: #e8e2d8;
+    color: var(--ink);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  body {
+    display: grid;
+    place-items: center;
+    padding: 18px;
+  }
+  .poster {
+    width: min(920px, 100%);
+    background: var(--bg);
+    border-radius: 28px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid #d9d1c4;
+    position: relative;
+  }
+  .topbar {
+    background: linear-gradient(135deg, #0f766e, #115e59 55%, #134e4a);
+    color: white;
+    padding: 28px 28px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .topbar::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -40px;
+    top: -60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.08);
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,.14);
+    border: 1px solid rgba(255,255,255,.18);
+    padding: 7px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .topbar h1 {
+    margin-top: 14px;
+    font-size: clamp(28px, 5vw, 40px);
+    line-height: 1.12;
+    max-width: 16ch;
+    font-weight: 700;
+  }
+  .topbar p {
+    margin-top: 12px;
+    max-width: 42ch;
+    font-size: 18px;
+    line-height: 1.45;
+    color: rgba(255,255,255,.92);
+  }
+  .content {
+    padding: 22px;
+    display: grid;
+    gap: 16px;
+  }
+  .story {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 760px) {
+    .story { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr !important; }
+  }
+  .step {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 16px;
+    min-height: 168px;
+    position: relative;
+    overflow: hidden;
+  }
+  .step-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    color: white;
+    background: var(--teal);
+    margin-bottom: 12px;
+  }
+  .step h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .step p {
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap: 12px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 18px;
+  }
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .card p, .card li {
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+  .card ul {
+    padding-left: 1.1em;
+  }
+  .card li { margin: 7px 0; }
+  .simple-box {
+    background: var(--teal-soft);
+    border: 1px solid #b7e4dc;
+    border-radius: 16px;
+    padding: 14px 16px;
+    color: #115e59;
+    font-size: 16px;
+    line-height: 1.45;
+    font-weight: 600;
+  }
+  .levels {
+    display: grid;
+    gap: 10px;
+  }
+  .level {
+    display: grid;
+    grid-template-columns: 92px 1fr;
+    gap: 12px;
+    align-items: center;
+    border-radius: 14px;
+    padding: 12px;
+    border: 1px solid var(--line);
+  }
+  .level .dot {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 6px;
+    border-radius: 12px;
+  }
+  .level.low { background: var(--good-soft); }
+  .level.low .dot { background: #bbf7d0; color: var(--good); }
+  .level.mid { background: var(--amber-soft); }
+  .level.mid .dot { background: #fde68a; color: var(--amber); }
+  .level.high { background: var(--rose-soft); }
+  .level.high .dot { background: #fecdd3; color: var(--rose); }
+  .level p { font-size: 14px; color: var(--muted); line-height: 1.4; }
+  .mouth-body {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 10px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .bubble {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 14px;
+    text-align: center;
+  }
+  .bubble strong {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .bubble span {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.35;
+  }
+  .arrow {
+    font-size: 28px;
+    color: var(--teal);
+    font-weight: 700;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 0 22px 20px;
+    color: #6b7280;
+    font-size: 12px;
+  }
+  /* Motion: “video poster” feel */
+  .anim-panel {
+    background: linear-gradient(180deg, #ffffff, #f8faf9);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 16px;
+    overflow: hidden;
+  }
+  .anim-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .scene {
+    height: 170px;
+    border-radius: 16px;
+    background: #ecfdf8;
+    border: 1px dashed #99f6e4;
+    position: relative;
+    overflow: hidden;
+  }
+  .gum {
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    bottom: 28px;
+    height: 48px;
+    border-radius: 18px 18px 10px 10px;
+    background: linear-gradient(180deg, #fb7185, #e11d48);
+  }
+  .tooth {
+    position: absolute;
+    bottom: 52px;
+    width: 42px;
+    height: 70px;
+    background: #fff;
+    border-radius: 12px 12px 8px 8px;
+    border: 2px solid #e5e7eb;
+    box-shadow: 0 6px 14px rgba(0,0,0,.06);
+  }
+  .tooth.t1 { left: 28%; }
+  .tooth.t2 { left: 46%; }
+  .tooth.t3 { left: 64%; }
+  .enzyme {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #f59e0b;
+    box-shadow: 0 0 0 6px rgba(245,158,11,.18);
+    animation: float 2.8s ease-in-out infinite;
+  }
+  .enzyme.e1 { left: 34%; bottom: 70px; animation-delay: 0s; }
+  .enzyme.e2 { left: 50%; bottom: 78px; animation-delay: .4s; }
+  .enzyme.e3 { left: 66%; bottom: 66px; animation-delay: .8s; }
+  .label-float {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .chip {
+    background: white;
+    border: 1px solid #ccfbf1;
+    color: #0f766e;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  .meter {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    left: 14px;
+    height: 10px;
+    background: #d1fae5;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .meter > span {
+    display: block;
+    height: 100%;
+    width: 18%;
+    background: linear-gradient(90deg, #22c55e, #f59e0b, #ef4444);
+    border-radius: 999px;
+    animation: meter 5.5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); opacity: .85; }
+    50% { transform: translateY(-10px) scale(1.08); opacity: 1; }
+  }
+  @keyframes meter {
+    0%, 100% { width: 22%; }
+    35% { width: 68%; }
+    55% { width: 84%; }
+    75% { width: 40%; }
+  }
+  .play-hint {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .cta {
+    background: #134e4a;
+    color: white;
+    border-radius: 20px;
+    padding: 18px;
+  }
+  .cta h3 { color: white; margin-bottom: 8px; font-size: 18px; }
+  .cta p { color: rgba(255,255,255,.9); font-size: 15px; line-height: 1.45; }
+  @media (prefers-reduced-motion: reduce) {
+    .enzyme, .meter > span { animation: none; }
+  }
+  @media print {
+    body { background: white; padding: 0; }
+    .poster { box-shadow: none; border: 0; width: 100%; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+  <article class="poster" aria-label="Patient guide to aMMP-8 salivary screening">
+    <header class="topbar">
+      <div class="badge">Simple patient guide · aMMP-8 saliva test</div>
+      <h1>What is this mouth test, and why does it matter?</h1>
+      <p>We use a quick saliva / mouth-rinse screen to check whether your gums are actively breaking down right now — and what that may mean for your whole-body health.</p>
+    </header>
+
+    <div class="content">
+      <section class="simple-box">
+        In plain words: this test looks for a “breakdown signal” made by your immune system when gum tissue is under attack.
+      </section>
+
+      <section class="story" aria-label="How the test works">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h2>Your immune system responds</h2>
+          <p>When bacteria bother your gums, your body sends helpers to fight them. That is normal and good.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h2>Sometimes the fight gets too strong</h2>
+          <p>If the reaction stays too active, it can start breaking down the tissues that hold your teeth.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h2>We measure that signal</h2>
+          <p>The test checks for <strong>aMMP-8</strong>, a protein linked to active tissue breakdown — in real time.</p>
+        </div>
+      </section>
+
+      <section class="split">
+        <div class="anim-panel">
+          <div class="anim-title">Watch the idea (short looping poster)</div>
+          <div class="scene" aria-hidden="true">
+            <div class="label-float">
+              <span class="chip">Gum tissue</span>
+              <span class="chip">aMMP-8 signal</span>
+            </div>
+            <div class="tooth t1"></div>
+            <div class="tooth t2"></div>
+            <div class="tooth t3"></div>
+            <div class="gum"></div>
+            <div class="enzyme e1"></div>
+            <div class="enzyme e2"></div>
+            <div class="enzyme e3"></div>
+            <div class="meter"><span></span></div>
+          </div>
+          <p class="play-hint">Yellow dots = breakdown signal. The bar shows the signal rising or falling. We want a lower, calmer reading over time.</p>
+        </div>
+
+        <div class="card">
+          <h3>What aMMP-8 means</h3>
+          <p style="margin-bottom:10px;"><strong style="color:var(--ink);">aMMP-8</strong> is a natural enzyme your body can make when inflammation is actively damaging tissue.</p>
+          <ul>
+            <li>It is not a test for one germ.</li>
+            <li>It is not the same as “do I have cavities?”</li>
+            <li>It helps show if gum damage is happening <em>now</em>.</li>
+            <li>It helps us track whether treatment is working.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="split">
+        <div class="card">
+          <h3>What your result may look like</h3>
+          <div class="levels" style="margin-top:8px;">
+            <div class="level low">
+              <div class="dot">Lower</div>
+              <p>Usually a calmer immune response. We still protect your gums with good care and checkups.</p>
+            </div>
+            <div class="level mid">
+              <div class="dot">Raised</div>
+              <p>More active inflammation. We may recommend deeper cleaning, closer follow-up, and home-care changes.</p>
+            </div>
+            <div class="level high">
+              <div class="dot">Very high</div>
+              <p>Strong active breakdown signal. We act on gum health and may also discuss whole-body inflammation risk.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Mouth health ↔ body health</h3>
+          <div class="mouth-body">
+            <div class="bubble">
+              <strong>Mouth</strong>
+              <span>Active gum inflammation and tissue stress</span>
+            </div>
+            <div class="arrow">↔</div>
+            <div class="bubble">
+              <strong>Body</strong>
+              <span>Shared inflammatory pathways (including diabetes risk links)</span>
+            </div>
+          </div>
+          <p style="margin-top:14px;">Your mouth and body share the same immune system. Long-lasting gum inflammation can add to overall inflammatory stress. That is why very high results may lead us to coordinate with your primary care provider.</p>
+        </div>
+      </section>
+
+      <section class="cta">
+        <h3>What this means for you</h3>
+        <p>
+          This screening helps us see if your gums are quietly under attack before more damage builds up.
+          If your number is high, we don’t panic — we make a plan: treat the gums, re-check the signal, and if needed, connect care with your medical doctor for whole-body health.
+        </p>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <span>Patient education poster · High-school biology level · aMMP-8 salivary screening</span>
+      <span>Ask our team to explain your personal result</span>
+    </footer>
+  </article>
+</body>
+</html>
